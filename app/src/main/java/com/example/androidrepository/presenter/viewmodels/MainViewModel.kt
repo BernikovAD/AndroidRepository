@@ -23,6 +23,8 @@ class MainViewModel @Inject constructor(
 
     private var currentResult: Flow<PagingData<ItemRepo>>? = null
 
+    var item:ItemRepo? = null
+
     suspend fun getRepository(): Flow<PagingData<ItemRepo>> {
             val newResult: Flow<PagingData<ItemRepo>> = Pager(PagingConfig(pageSize = 20)) {
                 MyPagingSource(repositoryDomain)
