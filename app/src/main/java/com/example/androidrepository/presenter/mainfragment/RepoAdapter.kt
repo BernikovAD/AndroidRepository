@@ -2,6 +2,7 @@ package com.example.androidrepository.presenter.mainfragment
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.example.androidrepository.databinding.ItemRepoBinding
@@ -9,7 +10,7 @@ import com.example.androidrepository.interfaces.RepoListener
 import com.example.androidrepository.model.ItemRepo
 
 
-class RepoAdapter: ListAdapter<ItemRepo, RepoViewHolder>(
+class RepoAdapter: PagingDataAdapter<ItemRepo, RepoViewHolder>(
     DIFF_CALLBACK
 ) {
     companion object {
@@ -39,8 +40,9 @@ class RepoAdapter: ListAdapter<ItemRepo, RepoViewHolder>(
 
     }
 
-    override fun onBindViewHolder(holder: RepoViewHolder, position: Int) {
-        holder.bind(getItem(position))
-    }
 
+    override fun onBindViewHolder(holder: RepoViewHolder, position: Int) {
+        val item = getItem(position)
+        holder.bind(item!!)
+    }
 }

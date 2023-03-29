@@ -8,7 +8,7 @@ import retrofit2.http.Query
 interface IRetrofitAPI {
     @GET("search/repositories?q=android&sort=stars")
     suspend fun getRepository(
-        @Query("page") page: String,
-        @Query("per_page") perPage: String
+        @Query("page") page: Int,
+        @Query("per_page") perPage: Int
     ): Response<RepoModel>
 }

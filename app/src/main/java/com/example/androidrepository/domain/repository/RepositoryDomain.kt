@@ -6,7 +6,7 @@ import retrofit2.Response
 import javax.inject.Inject
 
 class RepositoryDomain @Inject constructor(private val api: IRetrofitAPI) : IRepositoryDomain(api) {
-    override suspend fun getRepository(page:String,perPage:String): Response<RepoModel> {
+    override suspend fun getRepository(page:Int,perPage:Int): Response<RepoModel> {
         return api.getRepository(page=page,perPage=perPage)
     }
 }

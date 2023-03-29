@@ -5,5 +5,5 @@ import com.example.androidrepository.model.RepoModel
 import retrofit2.Response
 
 abstract class IRepositoryDomain(api: IRetrofitAPI) {
-    abstract suspend fun getRepository(page: String, perPage: String): Response<RepoModel>
+    abstract suspend fun getRepository(page: Int, perPage: Int): Response<RepoModel>
 }

@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
 import com.example.androidrepository.MyApplication
 import com.example.androidrepository.databinding.FragmentMainBinding
 import com.example.androidrepository.interfaces.RepoListener
@@ -12,6 +15,9 @@ import com.example.androidrepository.presenter.viewmodels.MainState
 import com.example.androidrepository.presenter.viewmodels.MainViewModel
 import com.example.androidrepository.presenter.viewmodels.ViewModelFactory
 import com.example.androidrepository.utils.BaseViewBindingFragment
+import com.example.androidrepository.utils.MyPagingSource
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class MainFragment:
@@ -30,7 +36,12 @@ BaseViewBindingFragment<FragmentMainBinding>(FragmentMainBinding::inflate) {
                 Toast.makeText(requireContext(),"${itemRepo.name}",Toast.LENGTH_SHORT).show()
             }
         })
-        viewModel.observeState(viewLifecycleOwner){
+        lifecycleScope.launch {
+            viewModel.getRepository().collectLatest { pagingData ->
+                adapter.submitData(pagingData)
+            }
+        }
+     /*   viewModel.observeState(viewLifecycleOwner){
             when(it){
                 MainState.Loading -> {
                     binding.recyclerViewRepo.visibility = View.GONE
@@ -50,7 +61,7 @@ BaseViewBindingFragment<FragmentMainBinding>(FragmentMainBinding::inflate) {
                     }
                 }
             }
-        }
+        }*/
     }
     companion object {
         fun newInstance() = MainFragment()
